@@ -29,11 +29,18 @@ class Settings(BaseSettings):
     @property
     def DATABASE_URL(self) -> str:
         """Construye la URL de base de datos dinámicamente"""
-        return f"postgresql://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        return f"postgresql+psycopg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    # class Config:
+    #     env_file = ".env"
+    #     case_sensitive = True
+
+    # Configuración adicional para pydantic-settings 
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        case_sensitive = True,
+        extra="ignore",
+    )
 
 
 # Instancia global de configuración
