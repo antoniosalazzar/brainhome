@@ -15,9 +15,9 @@ class Settings(BaseSettings):
     DB_NAME: str = "homebrain_db"
 
     # Security JWT
-    SECRET_KEY: str = "CHANGE_THIS_SECRET_KEY_IN_PRODUCTION"
-    ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    JWT_SECRET_KEY: str = "your-secret-key-change-in-production-min-32-chars"
+    JWT_ALGORITHM: str = "HS256"
+    JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     # CORS settings (for future frontend integration)
     BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:3000"]
