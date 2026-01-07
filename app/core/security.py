@@ -3,10 +3,17 @@ from datetime import datetime, timedelta,timezone
 from typing import Optional
 from jose import JWTError, jwt
 from app.core.config import settings
+import hashlib
 
 # Configuracion de bcrypt para hashing de passwords
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+
+def _pre_hash(password: str) -> str:
+    """
+    Pre-hash con SHA-256 para evitar el límite de 72 bytes de bcrypt
+    """
+    return hashlib.sha256(password.encode("utf-8")).hexdigest()
 
 def hash_password(password: str) -> str:
     """
@@ -18,7 +25,7 @@ def hash_password(password: str) -> str:
     Returns:
         Hash bcrypt del password
     """
-    return pwd_context.hash(password)
+    return pwd_context.hash(_pre_hash(password))
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """
@@ -31,7 +38,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     Returns:
         True si coinciden, False en caso contrario
     """
-    return pwd_context.verify(plain_password, hashed_password)
+    return pwd_context.verify(_pre_hash(plain_password), hashed_password)
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """

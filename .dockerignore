@@ -1,0 +1,47 @@
+# Entornos virtuales
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# Env files (se pasan como variables, no copiados)
+.env
+.env.*
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Docs privados
+BITACORA_PERSONAL.md
+NOTAS_*.md
+
+# Database (datos locales, no van al contenedor)
+postgres_data/
+*.db
